@@ -1,20 +1,10 @@
 services:
-  # This is your API service
   - type: web
-    name: hianime-api-18uy
+    name: hianime-api
     env: node
     plan: free
-    branch: main
-    buildCommand: "npm install"
-    startCommand: "npm start"
+    buildCommand: npm install && npm run build:node
+    startCommand: node dist/node.js
     envVars:
-      - key: REDIS_URL
-        fromService:
-          type: redis
-          name: anihub-redis # This connects to the database below
-
-  # This is the new Redis database it needs
-  - type: redis
-    name: anihub-redis
-    plan: free
-    
+      - key: NODE_ENV
+        value: production
